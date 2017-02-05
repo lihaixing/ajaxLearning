@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>TODO supply a title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="js/jquery-2.1.4.js"></script>
+    </head>
+    <body>
+	<input id="name" type="text">
+	<div id="reponse">TODO write content</div>
+	<button id="click">点击</button>
+	<script>
+	    $(function () {
+		$("#click").click(function () {
+		    var name = $("#name").val();
+		    if (!name) {
+			return;
+		    }
+		    $.ajax({
+//			url: "php/jqueryAjax.php",
+			url: "http://www.runoob.com/try/ajax/jsonp.php",
+//			url: "http://192.168.1.102/workspace/haixing.li/ajaxLearning/php/jsonpAjax.php",
+			type: "post",
+			data: {"name": name},
+			dataType: "jsonp",
+			jsonp: "jsoncallback", //默认为callback
+
+			//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
+			jsonpCallback: "flightHandler", //不指定会执行success中的函数
+			success: finishAjax,
+			error: function (x) {
+			    alert(x)
+			},
+			async: true
+		    });
+		});
+		function finishAjax(x) {
+//		    $("#reponse").html(x);
+		    console.log(x[1]);
+		}
+		function flightHandler(x) {
+		    console.log("fly");
+		    $("#reponse").text(x);
+		}
+		//另外一种方法
+//		$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format= json & jsoncallback = ?", function (data) {
+//
+//		});
+	    });
+	</script>
+    </body>
+
+</html>

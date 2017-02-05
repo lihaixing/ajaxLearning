@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+	<title>TODO supply a title</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="js/jquery-2.1.4.js"></script>
+    </head>
+    <body>
+	<div>
+	    <input id="name" type="text">
+	    <span id="reponse"></span>
+	</div>
+
+	<button id="click">点击</button>
+	<script>
+	    $('#click').click(function () {
+		    getServerText();
+	    });
+
+	    /**
+	     * 创建XMLHttpRequest对象
+	     */
+	    function createXhr() {
+		var xhr = null;
+		if (window.XMLHttpRequest) {
+		    xhr = new XMLHttpRequest();
+		} else {
+		    xhr = new ActiveXObject("Microsoft.XMLHttp");
+		}
+		return xhr;
+	    }
+
+	    /**
+	     * 异步请求方法
+	     */
+	    function getServerText() {
+		var nameValue = $("#name").val();
+		if(!nameValue){
+		    return;
+		}
+		//1、获取xhr
+		var xhr = createXhr();
+		//2、创建请求
+//		xhr.open("get", "php/checkname.php?name=" + nameValue, true);
+	
+//		POST方式
+		xhr.open("post", "php/checkname.php", true);
+		xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		
+		//3、设置回调函数
+		xhr.onreadystatechange = function () {
+		    if (xhr.readyState == 4 && xhr.status == 200) {
+			//服务器已经正确处理请求，并且正确响应数据到客户端
+			var resText = xhr.responseText;
+			$('#reponse').text(resText);
+		    }
+		}
+		//4、发送请求
+//		xhr.send(null);
+		
+//		post方式
+		xhr.send("name="+nameValue);
+		
+	    }
+	</script>
+    </body>
+
+</html>
