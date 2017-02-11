@@ -9,12 +9,20 @@ and open the template in the editor.
 	<title>TODO supply a title</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="js/jquery-2.1.4.js"></script>
+	
 	<script src="php/ajax.php"></script>
     </head>
     <body>
 	<div>TODO write content</div>
+	<script id="demo" type="text/plain" src="newhtml.html"></script>
 	<script>
-	    console.log()
+	    window.onload = function () {
+		$.get("newhtml.html","",function(text){
+		    $("#demo").replaceWith(text);
+		},false);
+		console.log(a);
+	    }
 	</script>
     </body>
 </html>
