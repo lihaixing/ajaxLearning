@@ -7,4 +7,5 @@
  */
 $hello='goog';
 echo 'var a="hello world";';
+echo $hello;
 
